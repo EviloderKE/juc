@@ -44,13 +44,36 @@ public class Demo {
                 new ArrayBlockingQueue<>(1000),
                 namedThreadFactory);
 
-        ArrayList<String> strings = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            Future<String> submit = threadPool.submit(new MyCallable());
-            String s = submit.get();
-            strings.add(s);
-        }
+        /*
+         * 使用future获取返回值
+         */
+//        ArrayList<String> strings = new ArrayList<>();
+//        for (int i = 0; i < 2; i++) {
+//            Future<String> submit = threadPool.submit(() -> {
+//                System.out.println(Thread.currentThread().getName() + "   执行callable的call方法");
+//                return "result";
+//            });
+//            String s = submit.get();
+//            strings.add(s);
+//        }
+//
+//        System.out.println(strings);
 
-        System.out.println(strings);
+//        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.runAsync(() -> {
+//            System.out.println(Thread.currentThread().getName() + "   执行callable的call方法");
+//        }, threadPool);
+//
+//        voidCompletableFuture.get();
+
+        /*
+         * 使用completableFuture获取返回值
+         */
+        CompletableFuture<String> stringCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            System.out.println(Thread.currentThread().getName() + "   执行callable的call方法");
+            return "result";
+        }, threadPool);
+        String s = stringCompletableFuture.get();
+        System.out.println(s);
+
     }
 }
