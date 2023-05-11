@@ -8,12 +8,17 @@ public class MyRunnable implements Runnable{
     }
 
     public static void main(String[] args) {
-        MyThread myThread = new MyThread();
-        myThread.start();
+        Thread thread = new Thread(new MyRunnable());
+        thread.start();
 
         /*
          * run和start区别 run还是再主线程执行
          */
         // myThread.run();
+
+        Thread thread1 = new Thread(() -> {
+            System.out.println(1);
+        });
+        thread1.start();
     }
 }

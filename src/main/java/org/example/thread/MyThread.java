@@ -6,16 +6,11 @@ public class MyThread extends Thread{
     public void run(){
         //Thread t = Thread.currentThread();
         String name = getName();
-        System.out.println("当前的线程" + name);
+        System.out.println("当前的线程myThread" + name);
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new MyRunnable());
+        Thread thread = new MyThread();
         thread.start();
-
-        Thread thread1 = new Thread(() -> {
-            System.out.println(1);
-        });
-        thread1.start();
     }
 }
